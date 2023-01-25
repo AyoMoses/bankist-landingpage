@@ -71,15 +71,74 @@ header.append(message);
 // header.append(message.cloneNode(true)); // append() adds the element as the last child ina parent
 
 //? to attach an element NOT AS A CHILD but as a SIBLING
-header.before(message); // attach before the element
-// header.after(message); // attach after the element
-
+// header.before(message); // attach before the element
+header.after(message); // attach after the element
 
 //? deleting an element programtically from the DOM
-document.querySelector('.btn--close-cookie').addEventListener('click', function() {
+document.querySelector('.btn--close-cookie').addEventListener('click', function () {
   // new way of deleting
   message.remove();
 
   // old way
   // message.parentElement.removeChild(message);
 });
+
+
+// STYLES, ATTRIBUTES, AND CLASSES
+
+// STYLES 
+// styles applied from JS are applied as inline
+message.style.backgroundColor = '#37383d';
+
+//? YOU CAN GET THE STYLES OF AN ELEMENT DYNAMICALLY. Using getComputedStyles() function -- then from the huge object, you can check for whay you want get
+// the getComputedStyle are as they appear on the webpage even if they are not declared in the CSS. The browser computes the styles
+console.log(getComputedStyle(message).color);
+console.log(getComputedStyle(message).height);
+
+// remeber, the Number.parseFloat() takes a string and converts to a number
+message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+
+
+// using CSS custom properties to set page styles using JS - the :root in css refers to the document in JS
+//? we can setProperty just like we do in CSS
+// document.documentElement.style.setProperty('--color-primary', 'red');
+
+//? ATTRIBUTES -- attributes as u knw are what are in html elements. img as an attr of src, alt, class, id etc
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.alt);
+// console.log(logo.id);
+// console.log(logo.className);
+// console.log(logo.src);
+
+// this returns absolute path
+// console.log(logo.src);
+// this returns relative path
+// console.log(logo.getAttribute('src'));
+
+// You can set a new value for an attribute of an element
+// logo.alt = 'a new logo';
+// console.log(logo.alt);
+
+// you can also read an attribute not of the standard passed randomly to an element using the getAttribute()
+// console.log(logo.getAttribute('data-test'));  // returns 'test-attr' as the value
+
+
+// SetAttribute also allow us to create a new attribute with value
+// console.log(logo.setAttribute('company', 'a new attribute'));
+
+// const link = document.querySelector('.nav__link--btn');
+// console.log(link.href); // returns the whole url -- absolute
+// console.log(link.getAttribute('href')); // returns the value of href - relative
+
+
+// DATA ATTRIBUTES
+//? we use data attr alot when we work with the UI and need to store date in HTML
+// data attributes as stored in a special number called dataset
+// console.log(logo.dataset.test);
+
+
+// Classes
+// logo.classList.add('c', 'a');
+// logo.classList.remove('c', 'a');
+// logo.classList.toggle('c', 'a');
+// logo.classList.contains('c', 'a'); // not includes as seen in arrays

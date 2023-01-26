@@ -83,7 +83,40 @@ document.querySelector('.btn--close-cookie').addEventListener('click', function 
   // message.parentElement.removeChild(message);
 });
 
+//? SMOOTH SCROLL
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
+btnScrollTo.addEventListener('click', function(e) {
+  //? OLD WAY OF DOING SMOOTH SCROLL 
+
+  // ?get coordinates of the section we are scrolling to
+  // const s1coords = section1.getBoundingClientRect(section1);
+  // console.log(s1coords);
+  // console.log(e.target.getBoundingClientRect()); // target refers to the parent declaring th code in this case btnScrollTo
+
+  //? get current page scroll position
+  // console.log('current Scroll X/Y', window.scrollX, window.scrollY);
+
+  //? get viewport width and height
+  // console.log('what you see is VP-w and VP-h', document.documentElement.clientHeight, document.documentElement.clientWidth);
+
+  //? Scrolling to elements
+  // window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY); // the first is the left and top gotten from the getBoudingClientRect
+  // using window now makes it relative to the top of the browser page
+  //? the current postion + current scroll
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX, 
+  //   top: s1coords.top + window.scrollY,
+  //   behavior: 'smooth'
+  // });
+
+  section1.scrollIntoView({behavior: 'smooth'});
+});
+
+
+//? LECTURES 
 // STYLES, ATTRIBUTES, AND CLASSES
 
 // STYLES 

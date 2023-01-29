@@ -197,3 +197,11 @@ const alertH1 = function (e) {
 }
 h1.addEventListener('mouseenter', alertH1);
 //? to remove event listener we need to export the function
+
+
+// JS EVENTS HAVE VERY IMMPORTANT - CAPTURING PHASE AND BUBBLING PHASE
+// once an event listener is fired, the click for example goes from the root which is the document, head, body, the div, elemement clicked ----- this phase is called the CAPTURING PHASE
+// ONCE ITS CLICKED ITS --- THE TARGER PHASE
+// THEN, THE RETURN FROM THE EVENT IT passes through the parents elements back to te root this is called the BUBBLING PHASE
+//? events can only be handled in the TARGET and BUBBLING PHASE but we can also set up handlers for the CAPTURING PHASE
+//? when we see EVENT PROPAGATE, it means CAPTURING and BUBBLING

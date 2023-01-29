@@ -87,7 +87,7 @@ document.querySelector('.btn--close-cookie').addEventListener('click', function 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
-btnScrollTo.addEventListener('click', function(e) {
+btnScrollTo.addEventListener('click', function (e) {
   //? OLD WAY OF DOING SMOOTH SCROLL 
 
   // ?get coordinates of the section we are scrolling to
@@ -112,7 +112,7 @@ btnScrollTo.addEventListener('click', function(e) {
   //   behavior: 'smooth'
   // });
 
-  section1.scrollIntoView({behavior: 'smooth'});
+  section1.scrollIntoView({ behavior: 'smooth' });
 });
 
 
@@ -175,3 +175,25 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 // logo.classList.remove('c', 'a');
 // logo.classList.toggle('c', 'a');
 // logo.classList.contains('c', 'a'); // not includes as seen in arrays
+
+
+//? Types of event Handlers
+const h1 = document.querySelector('h1');
+//? mouse enter works like the HOVER property in css
+// h1.addEventListener('mouseenter', function (e) {
+//   alert('You are reading the heading! You just hovered');
+// });
+
+// old way to add event
+// h1.onmouseenter = function(e) {
+//   alert('You are reading the heading! You just hovered');
+// }
+
+//? how to cancel event listener
+//? if you want eventlistener to run just once, below is the approach. Adding it to the function to resuse then it runs just once and removed
+const alertH1 = function (e) {
+  alert('You are reading the heading! You just hovered');
+  h1.removeEventListener('mouseenter', alertH1); 
+}
+h1.addEventListener('mouseenter', alertH1);
+//? to remove event listener we need to export the function

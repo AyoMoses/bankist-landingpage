@@ -193,7 +193,7 @@ const h1 = document.querySelector('h1');
 //? if you want eventlistener to run just once, below is the approach. Adding it to the function to resuse then it runs just once and removed
 const alertH1 = function (e) {
   alert('You are reading the heading! You just hovered');
-  h1.removeEventListener('mouseenter', alertH1); 
+  h1.removeEventListener('mouseenter', alertH1);
 }
 h1.addEventListener('mouseenter', alertH1);
 //? to remove event listener we need to export the function
@@ -205,3 +205,22 @@ h1.addEventListener('mouseenter', alertH1);
 // THEN, THE RETURN FROM THE EVENT IT passes through the parents elements back to te root this is called the BUBBLING PHASE
 //? events can only be handled in the TARGET and BUBBLING PHASE but we can also set up handlers for the CAPTURING PHASE
 //? when we see EVENT PROPAGATE, it means CAPTURING and BUBBLING
+
+// rgb(255,255,255)
+// const randomInit = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () => `rgb(${randomInit(0, 255)}, ${randomInit(0, 255)}, ${randomInit(0, 255)})`;
+// console.log(randomColor(0, 255));
+
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//       console.log(e.target, e.currentTarget);
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function () {
+//   console.log('nav links clicked');
+// });
+
+// document.querySelector('.nav').addEventListener('click', function() {
+//   console.log('nav clicked');
+// });

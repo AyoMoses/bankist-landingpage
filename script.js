@@ -178,7 +178,7 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 
 
 //? Types of event Handlers
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 //? mouse enter works like the HOVER property in css
 // h1.addEventListener('mouseenter', function (e) {
 //   alert('You are reading the heading! You just hovered');
@@ -191,11 +191,11 @@ const h1 = document.querySelector('h1');
 
 //? how to cancel event listener
 //? if you want eventlistener to run just once, below is the approach. Adding it to the function to resuse then it runs just once and removed
-const alertH1 = function (e) {
-  alert('You are reading the heading! You just hovered');
-  h1.removeEventListener('mouseenter', alertH1);
-}
-h1.addEventListener('mouseenter', alertH1);
+// const alertH1 = function (e) {
+//   alert('You are reading the heading! You just hovered');
+//   h1.removeEventListener('mouseenter', alertH1);
+// }
+// h1.addEventListener('mouseenter', alertH1);
 //? to remove event listener we need to export the function
 
 

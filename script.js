@@ -7,6 +7,9 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+const header = document.querySelector('.header');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -35,7 +38,7 @@ document.addEventListener('keydown', function (e) {
 
 // SELECTING ELEMENTS
 //? selecting the entire document or webpage. we get access to the root node of the doc
-const header = document.querySelector('.header');
+
 // console.log(document.documentElement);
 // console.log(document.head); // select the head of the html
 // console.log(document.body); // select the body of the html
@@ -84,9 +87,6 @@ document.querySelector('.btn--close-cookie').addEventListener('click', function 
 });
 
 //? SMOOTH SCROLL
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
 btnScrollTo.addEventListener('click', function (e) {
   //? OLD WAY OF DOING SMOOTH SCROLL 
 
@@ -115,6 +115,29 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+// Page Navigation
+//? this process is not efficient if we need to handle more than 100 sections
+// document.querySelectorAll('.nav__link').forEach(function(el) {
+//   el.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({behavior: 'smooth'});
+//   })
+// });
+
+//? The BEST way
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // console.log(e.target); // get where the clicks happens
+  e.preventDefault();
+  // Matching strategy - if the clicked element has the matching class we want in this case, the li > a link. If not, its ignored.
+  if (e.target.classList.contains('nav__link')) {
+
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
 
 //? LECTURES 
 // STYLES, ATTRIBUTES, AND CLASSES

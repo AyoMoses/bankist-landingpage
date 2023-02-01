@@ -247,3 +247,36 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 // document.querySelector('.nav').addEventListener('click', function() {
 //   console.log('nav clicked');
 // });
+
+
+//? DOM Traversing
+// const h1 = document.querySelector('h1');
+
+// Going downwards - selecting child element
+// console.log(h1.querySelectorAll('.highlight')); // select any child of a parent
+
+// When need to select DIRECT CHILD of a parent
+// console.log(h1.childNodes);
+// console.log(h1.children); // returns the child elements in a HTML collection
+// console.log(h1.firstElementChild.style.color = 'white'); // select the FIRST CHILD ELEMENT
+// console.log(h1.lastElementChild.style.backgroundColor = 'orange'); // select the LAST CHILD ELEMENT
+//? Going upward -- selecting parents and parent element
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+// h1.closest('header').style.backgroundColor = 'var(--color-secondary)'; // selects the closest parent element that matches the class added. CAN ALSO BE AN ELEMENT TAG
+// h1.closest('h1').style.backgroundColor = 'var(--color-tertiary)'; // if the element checking for parent is itself the matching element closest to what is asked it returns itself
+
+//? QUERYSELECTOR/ALL and CLOSEST are the same the difference is QUERY look for children element no matter how deep while CLOSEST looks for parent element no matter how far up the DOM tree
+
+//? Selecting Siblings - Previous element and Next like a child in the middle of 3 kids
+// console.log(h1.previousElementSibling); // returns null because it has non
+// console.log(h1.nextElementSibling); // returns h4 as its the next sibling
+
+// console.log(h1.previousSibling);
+// console.log(h1.nextSibling);
+
+// GETTING ALL CHILDREN MEANS YOU FIRST GO THE PARENT ELEMENT THEN GET CHILDREN
+// console.log(h1.parentElement.children); 
+// [...h1.parentElement.children].forEach(function (el) {
+//   if(el !== h1) el.style.transform = 'scale(0.5)';
+// })

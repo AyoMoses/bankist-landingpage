@@ -126,7 +126,7 @@ btnScrollTo.addEventListener('click', function (e) {
 // });
 
 //? The BEST way
-// 1. Add event listener to common parent element
+// 1. Add event listener to common parent container (element)
 // 2. Determine what element originated the event
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   // console.log(e.target); // get where the clicks happens
@@ -139,6 +139,42 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
+
+// Tabbed component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+//using event delegation rule - 1. Attach event handler to common parent container. 2. Get where the click event comes from
+tabsContainer.addEventListener('click', function (e) {
+  // if(tab.target.classList.contains('operations__tab')) {
+  //   console.log(this.getAttribute('data-tab'));
+  // }
+  const clicked = e.target.closest('.operations__tab'); // closest() looks for the closest parent matching the class we added which is the button itself
+
+  //? A Guard clause --- an if statement that returns early if some condition is matched
+  if (!clicked) return; // if nothing is clicked, we finish the function immediately
+  // when we have 'null' returned, by clicking on elements not closest to the parent or matching the clicked, which is a FALSY value, then NOT FALSY will become TRUE
+
+  // but if clicked does EXIST, then, the return will not be executed and the rest of the code will be executed which is the code below it
+  //? its a more modern way of writing -- 
+  // if (clicked) {
+  //   clicked.classList.add('operations__tab--active');
+  // }
+
+  // remove active class from tab and content
+  tabs.forEach(tab =>tab.classList.remove('operations__tab--active'));
+  tabsContent.forEach(con => con.classList.remove('operations__content--active'));
+
+  
+  // add the active class for tab and content
+  clicked.classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+});
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
 //? LECTURES 
 // STYLES, ATTRIBUTES, AND CLASSES
 
@@ -148,11 +184,11 @@ message.style.backgroundColor = '#37383d';
 
 //? YOU CAN GET THE STYLES OF AN ELEMENT DYNAMICALLY. Using getComputedStyles() function -- then from the huge object, you can check for whay you want get
 // the getComputedStyle are as they appear on the webpage even if they are not declared in the CSS. The browser computes the styles
-console.log(getComputedStyle(message).color);
-console.log(getComputedStyle(message).height);
+// console.log(getComputedStyle(message).color);
+// console.log(getComputedStyle(message).height);
 
 // remeber, the Number.parseFloat() takes a string and converts to a number
-message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+// message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
 
 
 // using CSS custom properties to set page styles using JS - the :root in css refers to the document in JS

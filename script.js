@@ -1,15 +1,24 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
-
+// Modal window selector
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+
+// in-page smooth scroll selector
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 const header = document.querySelector('.header');
+
+// Tabs selector
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// menu selector
+const nav = document.querySelector('.nav');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -87,7 +96,7 @@ document.querySelector('.btn--close-cookie').addEventListener('click', function 
 });
 
 //? SMOOTH SCROLL
-btnScrollTo.addEventListener('click', function (e) {
+btnScrollTo.addEventListener('click', function () { // add (e) if you ever need the old code
   //? OLD WAY OF DOING SMOOTH SCROLL 
 
   // ?get coordinates of the section we are scrolling to
@@ -115,7 +124,7 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-// Page Navigation
+//? Page Navigation
 //? this process is not efficient if we need to handle more than 100 sections
 // document.querySelectorAll('.nav__link').forEach(function(el) {
 //   el.addEventListener('click', function(e) {
@@ -140,10 +149,7 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 
-// Tabbed component
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
+//? Tabbed component
 
 //using event delegation rule - 1. Attach event handler to common parent container. 2. Get where the click event comes from
 tabsContainer.addEventListener('click', function (e) {
@@ -163,14 +169,34 @@ tabsContainer.addEventListener('click', function (e) {
   // }
 
   // remove active class from tab and content
-  tabs.forEach(tab =>tab.classList.remove('operations__tab--active'));
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
   tabsContent.forEach(con => con.classList.remove('operations__content--active'));
 
-  
+
   // add the active class for tab and content
   clicked.classList.add('operations__tab--active');
   document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 });
+
+// Menu fade animation
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this; // this in this case is the opacity since we use bind 
+  }
+}
+
+//? we can pass multiple arguements inside a handler functiion and passing it into a callback function using bind() method by just using one argument on the handler and bind to state multiple arguements to be called
+// bind create a function on itself so we use it to pass arguments to eventlistener so, JS sees it like we are using a function
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

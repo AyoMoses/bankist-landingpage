@@ -200,12 +200,35 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 // STICKY NAVIGATION
 // this initial way of adding classes is not good way
-const initialCoords = section1.getBoundingClientRect();
-console.log(initialCoords);
-window.addEventListener('scroll', function () {
-  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
-  else nav.classList.remove('sticky');
-});
+// const initialCoords = section1.getBoundingClientRect();
+// console.log(initialCoords);
+// window.addEventListener('scroll', function () {
+//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+//? USING THE INTERSECTION OBSERVER API
+// it takes a callback function and an options object
+
+// callback function will be called each time the observed element is intersecting the root element AT THE THRESHOLD THAT WE DEFINED. IN THIS CASE WHEN THE section1 element is intersecting the viewport at 10% 
+// const obsCallback = function(entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   })
+// }
+
+// const obsOptions = {
+//   root: null, // we can type a root element or null so it is the view port
+//   threshold: [0, 0.2], // we pass 2 elements - 0 is out of the view and 0.2 is into the view
+// }
+
+// provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1); // we ask observer to observe the element we pass into it
+
+
+
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

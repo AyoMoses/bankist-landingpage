@@ -69,31 +69,32 @@ document.addEventListener('keydown', function (e) {
 
 // .insertAdjacentElement('stick to using this to create element on the DOM often if you need to build it manually');
 
-const message = document.createElement('div');
-message.classList.add('cookie-message');
-// message.textContent = 'We use cookie for improved analytics.';
-message.innerHTML = 'We use cookie for improved analytics. <button class="btn btn--close-cookie">Got it!</button>';
+//? creating elements dynamically from JS
+// const message = document.createElement('div');
+// message.classList.add('cookie-message');
+// // message.textContent = 'We use cookie for improved analytics.';
+// message.innerHTML = 'We use cookie for improved analytics. <button class="btn btn--close-cookie">Got it!</button>';
 
 //? prepend adds the element as the FIRST CHILD
 // header.prepend(message); // prepend is used to attach our created element to the dom
 
-header.append(message);
+// header.append(message);
 
 //? to clone a DOM element or copy it, we use the cloneNode() method
 // header.append(message.cloneNode(true)); // append() adds the element as the last child ina parent
 
 //? to attach an element NOT AS A CHILD but as a SIBLING
 // header.before(message); // attach before the element
-header.after(message); // attach after the element
+// header.after(message); // attach after the element
 
 //? deleting an element programtically from the DOM
-document.querySelector('.btn--close-cookie').addEventListener('click', function () {
-  // new way of deleting
-  message.remove();
+// document.querySelector('.btn--close-cookie').addEventListener('click', function () {
+//   // new way of deleting
+//   message.remove();
 
-  // old way
-  // message.parentElement.removeChild(message);
-});
+//   // old way
+//   // message.parentElement.removeChild(message);
+// });
 
 //? SMOOTH SCROLL
 btnScrollTo.addEventListener('click', function () { // add (e) if you ever need the old code
@@ -210,6 +211,26 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 //? USING THE INTERSECTION OBSERVER API
 // it takes a callback function and an options object
 
+//? how to get the height of an element or even width and other properties
+const navHeight = nav.getBoundingClientRect().height; 
+console.log(navHeight);
+
+
+const stickyNav = function (entries) {
+  const [entry] = entries; // we destructure by getting the first value same AS WRITING entries[0]
+  // console.log(entry);
+
+  if (!entry.isIntersecting) nav.classList.add('sticky')
+  else nav.classList.remove('sticky')
+}
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px` // box of -90px applied outside our target element. adding more space to the root before the observer fires
+});
+headerObserver.observe(header);
+
 // callback function will be called each time the observed element is intersecting the root element AT THE THRESHOLD THAT WE DEFINED. IN THIS CASE WHEN THE section1 element is intersecting the viewport at 10% 
 // const obsCallback = function(entries, observer) {
 //   entries.forEach(entry => {
@@ -230,6 +251,7 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 
 
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -238,7 +260,7 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 // STYLES 
 // styles applied from JS are applied as inline
-message.style.backgroundColor = '#37383d';
+// message.style.backgroundColor = '#37383d';
 
 //? YOU CAN GET THE STYLES OF AN ELEMENT DYNAMICALLY. Using getComputedStyles() function -- then from the huge object, you can check for whay you want get
 // the getComputedStyle are as they appear on the webpage even if they are not declared in the CSS. The browser computes the styles

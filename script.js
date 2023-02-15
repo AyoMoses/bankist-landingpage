@@ -213,7 +213,6 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 //? how to get the height of an element or even width and other properties
 const navHeight = nav.getBoundingClientRect().height; 
-console.log(navHeight);
 
 
 const stickyNav = function (entries) {
@@ -248,9 +247,29 @@ headerObserver.observe(header);
 // observer.observe(section1); // we ask observer to observe the element we pass into it
 
 
+//? Reveal sections on scroll
 
+const allSections = document.querySelectorAll('.section');
 
+const revealSection = function(entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
 
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+
+  // once scrolling is done the first time, we unobserve
+  observer.unobserve(entry.target);
+}
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15, // this means a little bit after entering the viewport 0 is as we enter 
+});
+
+allSections.forEach(function(section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+})
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

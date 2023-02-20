@@ -212,7 +212,7 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 // it takes a callback function and an options object
 
 //? how to get the height of an element or even width and other properties
-const navHeight = nav.getBoundingClientRect().height; 
+const navHeight = nav.getBoundingClientRect().height;
 
 
 const stickyNav = function (entries) {
@@ -251,9 +251,9 @@ headerObserver.observe(header);
 
 const allSections = document.querySelectorAll('.section');
 
-const revealSection = function(entries, observer) {
+const revealSection = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   if (!entry.isIntersecting) return;
   entry.target.classList.remove('section--hidden');
@@ -266,10 +266,45 @@ const sectionObserver = new IntersectionObserver(revealSection, {
   threshold: 0.15, // this means a little bit after entering the viewport 0 is as we enter 
 });
 
-allSections.forEach(function(section) {
+allSections.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
-})
+});
+
+
+//? Lazy Loading Images -- really great for performance
+
+const imgTargets = document.querySelectorAll('img[data-src]');
+// console.log(imgTargets);
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+
+  // guard clause
+  if (!entry.isIntersecting) return;
+
+  // replace src with the data-src
+  console.log(`this is the ${entry.target.src}`);
+  entry.target.src = entry.target.dataset.src;
+
+  // an event listener to remove the class after load time is done
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+}
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px', // load the images before entering the VP
+});
+
+imgTargets.forEach(img => imgObserver.observe(img));
+
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

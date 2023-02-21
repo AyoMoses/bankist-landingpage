@@ -268,7 +268,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 
@@ -279,13 +279,13 @@ const imgTargets = document.querySelectorAll('img[data-src]');
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   // guard clause
   if (!entry.isIntersecting) return;
 
   // replace src with the data-src
-  console.log(`this is the ${entry.target.src}`);
+  // console.log(`this is the ${entry.target.src}`);
   entry.target.src = entry.target.dataset.src;
 
   // an event listener to remove the class after load time is done
@@ -305,6 +305,60 @@ const imgObserver = new IntersectionObserver(loadImg, {
 imgTargets.forEach(img => imgObserver.observe(img));
 
 
+// SLIDER
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+// default state of current slide
+let curSlide = 0;
+
+// get maximum number of slides 
+const maxSlides = slides.length;
+console.log(maxSlides);
+
+// slider.style.transform = 'scale(0.3) translateX(-90%)';
+// slider.style.overflow = 'visible';
+
+// create a starting position - 0, 100%, 200%, 300%
+// slides.forEach((s, i) => s.style.transform = `translateX(${100 * i}%)`);
+
+const gotoSlide = function (slide) {
+  // curSlide = 1: -100%, 0%, 100%, 200%
+  // on first iteration, i = 0, then, 0 - 1 = -1 and times 100 = -100
+  // next slide is 1,  1 - 1 = 0; 0 * 100 = 0
+  // next slide is 2,  2 - 1 = 1; 1 * 100 = 100
+  // and so on
+  slides.forEach((s, i) => s.style.transform = `translateX(${100 * (i - slide)}%)`);
+}
+
+gotoSlide(0);
+
+const nextSlide = function () {
+  if (curSlide === (maxSlides - 1)) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+
+  // curSlide = 1: -100%, 0%, 100%, 200%
+  gotoSlide(curSlide);
+
+
+}
+
+const prevSlide = function() {
+  if (curSlide === 0) {
+    curSlide = (maxSlides - 1);
+  } else {
+    curSlide--;
+  }
+  gotoSlide(curSlide);
+}
+
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

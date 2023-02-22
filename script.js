@@ -316,7 +316,7 @@ let curSlide = 0;
 
 // get maximum number of slides 
 const maxSlides = slides.length;
-console.log(maxSlides);
+
 
 // slider.style.transform = 'scale(0.3) translateX(-90%)';
 // slider.style.overflow = 'visible';
@@ -348,7 +348,7 @@ const nextSlide = function () {
 
 }
 
-const prevSlide = function() {
+const prevSlide = function () {
   if (curSlide === 0) {
     curSlide = (maxSlides - 1);
   } else {
@@ -359,6 +359,14 @@ const prevSlide = function() {
 
 btnRight.addEventListener('click', nextSlide);
 btnLeft.addEventListener('click', prevSlide);
+
+document.addEventListener('keydown', function (e) {
+  // if (e.key === 'ArrowLeft') prevSlide();  
+  
+
+  e.key === 'ArrowLeft' && prevSlide(); // using short circuting
+  if (e.key === 'ArrowRight') nextSlide();
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

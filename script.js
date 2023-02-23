@@ -310,6 +310,7 @@ const slides = document.querySelectorAll('.slide');
 const slider = document.querySelector('.slider');
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
+const dotsContainer = document.querySelector('.dots');
 
 // default state of current slide
 let curSlide = 0;
@@ -323,6 +324,23 @@ const maxSlides = slides.length;
 
 // create a starting position - 0, 100%, 200%, 300%
 // slides.forEach((s, i) => s.style.transform = `translateX(${100 * i}%)`);
+
+// dots creations
+const createDots = function () {
+  // const dotsHtml = `<button class="dots__dot" data-slide="${i}"></button>`
+  slides.forEach((_, i) => {
+    dotsContainer.insertAdjacentHTML('beforeend', `<button class="dots__dot" data-slide="${i}"></button>`);
+  })
+}
+createDots();
+
+const activateDot = function(slide) {
+  // select all the dots and remove the active class list
+  document.querySelectorAll('.dots__dot').forEach(dot => dot.classList.remove('dots__dot--active'));
+
+  document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
+}
+activateDot(curSlide);
 
 const gotoSlide = function (slide) {
   // curSlide = 1: -100%, 0%, 100%, 200%
@@ -345,7 +363,7 @@ const nextSlide = function () {
   // curSlide = 1: -100%, 0%, 100%, 200%
   gotoSlide(curSlide);
 
-
+  activateDot(curSlide);
 }
 
 const prevSlide = function () {
@@ -355,18 +373,33 @@ const prevSlide = function () {
     curSlide--;
   }
   gotoSlide(curSlide);
+
+  activateDot(curSlide);
 }
 
+// Event handlers
 btnRight.addEventListener('click', nextSlide);
 btnLeft.addEventListener('click', prevSlide);
 
 document.addEventListener('keydown', function (e) {
   // if (e.key === 'ArrowLeft') prevSlide();  
-  
+
 
   e.key === 'ArrowLeft' && prevSlide(); // using short circuting
   if (e.key === 'ArrowRight') nextSlide();
+
+  activateDot(curSlide);
 });
+
+dotsContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+
+    const { slide } = e.target.dataset;
+    gotoSlide(slide);
+    activateDot(slide);
+  }
+
+})
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////

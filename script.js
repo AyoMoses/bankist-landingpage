@@ -558,3 +558,23 @@ slider();
 // [...h1.parentElement.children].forEach(function (el) {
 //   if(el !== h1) el.style.transform = 'scale(0.5)';
 // })
+
+
+// DOM events to know
+//? DOMContentLoaded -- this event fires ONLY when HTML and JS are loaded and not images or videos - BUT THIS IS NOT NECESSARY
+document.addEventListener('DOMContentLoaded', function(e) {
+  console.log('the HTML and script loaded', e);
+})
+
+//? 'LOAD' --- event listener fires when HTML is parsed, external libraries, images, and CSS
+window.addEventListener('load', function(e){
+  console.log('all files loaded', e);
+})
+
+
+//? 'beforeunload' --- this fires after users click the tab close button in browser
+window.addEventListener('beforeunload', function(e) {
+  console.log(e);
+  e.preventDefault(); // some browsers require to prevent default to work
+  e.returnValue = '';
+})
